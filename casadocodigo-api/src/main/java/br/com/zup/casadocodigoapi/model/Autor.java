@@ -27,7 +27,8 @@ public class Autor {
 	}
 	
 	// construtor
-	public Autor(@NotBlank String nome, @NotBlank @Email String email, @NotBlank String descricao) {
+	public Autor(@NotBlank String nome, @NotBlank @Email String email, 
+			@NotBlank @Size(max = 400) String descricao) {
 		this.nome = nome;
 		this.email = email;
 		this.descricao = descricao;

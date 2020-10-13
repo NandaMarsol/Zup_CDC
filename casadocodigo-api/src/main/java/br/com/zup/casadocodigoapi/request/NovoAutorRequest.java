@@ -12,6 +12,10 @@ public class NovoAutorRequest {
 	@NotBlank @Email private String email; // formato de email válido
 	@NotBlank @Size(max = 400) private String descricao; // máximo 400 caracteres
 	
+	// métodos
+	public Autor toModel() {
+		return new Autor(this.nome, this.email, this.descricao);
+	}
 	
 	// getters
 	public String getNome() {
@@ -26,10 +30,6 @@ public class NovoAutorRequest {
 		return descricao;
 	}
 	
-	// métodos
-	public Autor toModel() {
-		return new Autor(this.nome, this.email, this.descricao);
-	}
 }
 
 /*

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
 // classe para tratar todos os erros não tratados que aconteceram na camada da API
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 public class AutorValidacaoErroHandlerAdvice { // HandlerAdvice - lidar com exceções
 	
 	// criando método para tratar a exceção MethodArgumentNotValidException
+	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ErroPadronizado> handle(MethodArgumentNotValidException methodArgumentNotValidException) {
         Collection<String> mensagens = new ArrayList<>();
         BindingResult bindingResult = methodArgumentNotValidException.getBindingResult();
