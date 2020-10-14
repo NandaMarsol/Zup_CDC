@@ -5,11 +5,13 @@ import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 
 import br.com.zup.casadocodigoapi.model.Autor;
+import br.com.zup.casadocodigoapi.validations.UniqueValue;
 
 public class NovoAutorRequest {
 
 	@NotBlank private String nome; // campos não podem ser vazios
-	@NotBlank @Email private String email; // formato de email válido
+	@NotBlank @Email // formato de email válido
+	@UniqueValue(domainClass = Autor.class, fieldName = "email") private String email; // adicionando anotação UniqueValue criada
 	@NotBlank @Size(max = 400) private String descricao; // máximo 400 caracteres
 	
 	// métodos

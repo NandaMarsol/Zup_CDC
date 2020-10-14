@@ -33,7 +33,5 @@ public class UniqueValueValidator implements ConstraintValidator<UniqueValue, St
 			Assert.state(list.size() <=1, "Foi encontrado mais de um " +klass+ " com o atributo " +domainAttribute+ " = " +value);
 			
 			return list.isEmpty();
-		
-		// return StringUtils.isBlank(valor);
 	}
 }
