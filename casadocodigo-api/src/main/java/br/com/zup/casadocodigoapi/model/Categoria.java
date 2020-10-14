@@ -14,8 +14,13 @@ public class Categoria {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	
-	@Column (unique = true)
+	@Column (unique = true) // nome da categoria único no banco de dados
 	@NotBlank private String nome;
+	
+	@Deprecated
+	public Categoria(){
+		
+	}
 
 	public Categoria(@NotBlank String nome) {
 		super();
