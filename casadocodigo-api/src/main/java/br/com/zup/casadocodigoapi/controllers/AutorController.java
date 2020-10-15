@@ -15,7 +15,7 @@ import br.com.zup.casadocodigoapi.request.NovoAutorRequest;
 @RestController // transforma a classe em Rest Controller
 public class AutorController {
 	
-	@Autowired
+	@Autowired // define a classe como pertencente a camada de persistência
 	private AutorRepository autorRepository;
 	
 	
