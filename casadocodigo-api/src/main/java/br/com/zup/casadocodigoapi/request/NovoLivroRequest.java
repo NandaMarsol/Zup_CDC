@@ -19,6 +19,7 @@ import br.com.zup.casadocodigoapi.model.Autor;
 import br.com.zup.casadocodigoapi.model.Categoria;
 
 import br.com.zup.casadocodigoapi.model.Livro;
+import br.com.zup.casadocodigoapi.validations.ExistsId;
 import br.com.zup.casadocodigoapi.validations.UniqueValue;
 
 
@@ -38,8 +39,10 @@ public class NovoLivroRequest {
 	@NotNull @Future @JsonFormat(pattern = "dd/MM/yyyy", shape = Shape.STRING)
 	private LocalDate dataDePublicacao;
 	
+	@ExistsId(domainClass = Categoria.class, fieldName = "id")
 	@NotNull private Long categoriaId;
 	
+	@ExistsId(domainClass = Autor.class, fieldName = "id")
 	@NotNull private Long autorId;
 	
 	@Deprecated
