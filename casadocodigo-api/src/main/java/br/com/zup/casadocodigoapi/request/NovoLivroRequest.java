@@ -102,8 +102,8 @@ public class NovoLivroRequest {
         Autor autor = manager.find(Autor.class, autorId);
         Categoria categoria = manager.find(Categoria.class, categoriaId);
 
-        Assert.notNull(autor, "O Autor não existe");
-        Assert.notNull(categoria, "A categoria não existe");
+        Assert.notNull(autor, "O autor não existe no banco de dados...");
+        Assert.notNull(categoria, "A categoria não existe no banco de dados...");
         
         return new Livro(titulo, resumo, sumario, preco, numeroDePaginas, isbn, dataDePublicacao, categoria, autor);
 
