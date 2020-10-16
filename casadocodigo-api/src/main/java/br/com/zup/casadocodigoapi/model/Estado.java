@@ -48,4 +48,8 @@ public class Estado {
 		return "Estado [id=" + id + ", nome=" + nome + ", pais=" + pais + "]";
 	}
 
+	public boolean pertenceAPais(Pais pais) {
+		return this.pais.equals(pais);
+	}
+
 }
