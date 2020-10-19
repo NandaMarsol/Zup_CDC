@@ -14,7 +14,6 @@ import br.com.zup.casadocodigoapi.request.DadosNovaCompraRequest;
 @Component
 public class EstadoPertenceAPaisValidator implements Validator {
 
-
 	@PersistenceContext
 	private EntityManager manager;
 
@@ -31,12 +30,13 @@ public class EstadoPertenceAPaisValidator implements Validator {
 
 		DadosNovaCompraRequest request = (DadosNovaCompraRequest) target;
 
-		Pais pais = manager.find(Pais.class, request.getPaisId());
-		Estado estado = manager.find(Estado.class, request.getEstadoId());
+		if (request.temEstado()) {
+			Pais pais = manager.find(Pais.class, request.getPaisId());
+			Estado estado = manager.find(Estado.class, request.getEstadoId());
+			if (!estado.pertenceAPais(pais)) {
+				errors.rejectValue("estadoId", null, " esse Estado não corresponde ao País selecionado.");
+			}
 
-		if (!estado.pertenceAPais(pais)) {
-			errors.rejectValue("estadoId", null, " esse Estado não corresponde ao País selecionado");
 		}
 	}
-
 }
