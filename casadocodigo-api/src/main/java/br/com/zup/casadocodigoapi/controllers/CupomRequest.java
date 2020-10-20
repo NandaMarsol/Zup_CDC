@@ -41,11 +41,29 @@ public class CupomRequest {
 		this.validade = validade;
 	}
 
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public BigDecimal getPercentualDesconto() {
+		return percentualDesconto;
+	}
+
+	public LocalDate getValidade() {
+		return validade;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
+
+	public void setPercentualDesconto(BigDecimal percentualDesconto) {
+		this.percentualDesconto = percentualDesconto;
+	}
+	
 	public Cupom toModel() {
 		return new Cupom(codigo, percentualDesconto, validade);
 	}
-	
-	
 	
 	
 }

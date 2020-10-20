@@ -13,7 +13,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import br.com.zup.casadocodigoapi.model.Compra;
+import br.com.zup.casadocodigoapi.repository.CupomRepository;
 import br.com.zup.casadocodigoapi.request.DadosNovaCompraRequest;
+import br.com.zup.casadocodigoapi.validations.CupomValidadoValidator;
 
 @RestController
 public class CompraController {
@@ -24,9 +26,16 @@ public class CompraController {
 	@PersistenceContext
 	private EntityManager manager;
 	
+	@Autowired
+	private CupomRepository cupomRepository;
+	
+	@Autowired
+	private CupomValidadoValidator cupomValidoValidator;
+	
+	
 	@InitBinder
 	public void init(WebDataBinder binder) {
-		binder.addValidators(new DocumentoCpfCnpjValidator(), estadoPertenceAPaisValidator);
+		binder.addValidators(new DocumentoCpfCnpjValidator(), estadoPertenceAPaisValidator, cupomValidoValidator );
 	}
 	
 	// criando uma compra
@@ -34,7 +43,7 @@ public class CompraController {
 	@Transactional
 	public String criarCompras(@RequestBody @Valid DadosNovaCompraRequest request){
 		
-		Compra novaCompra = request.toModel(manager);
+		Compra novaCompra = request.toModel(manager, cupomRepository);
 		manager.persist(novaCompra);
 		
 		return novaCompra.toString();

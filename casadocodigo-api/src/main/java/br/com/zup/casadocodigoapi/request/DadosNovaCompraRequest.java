@@ -1,5 +1,6 @@
 package br.com.zup.casadocodigoapi.request;
 
+import java.util.Optional;
 import java.util.function.Function;
 
 import javax.persistence.EntityManager;
@@ -11,11 +12,14 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CNPJValidator;
 import org.hibernate.validator.internal.constraintvalidators.hv.br.CPFValidator;
 import org.springframework.util.Assert;
+import org.springframework.util.StringUtils;
 
 import br.com.zup.casadocodigoapi.model.Compra;
+import br.com.zup.casadocodigoapi.model.Cupom;
 import br.com.zup.casadocodigoapi.model.Estado;
 import br.com.zup.casadocodigoapi.model.Pais;
 import br.com.zup.casadocodigoapi.model.Pedido;
+import br.com.zup.casadocodigoapi.repository.CupomRepository;
 import br.com.zup.casadocodigoapi.validations.ExistsId;
 
 public class DadosNovaCompraRequest {
@@ -50,6 +54,9 @@ public class DadosNovaCompraRequest {
 	
 	@NotNull @Valid
 	private NovoPedidoRequest pedido;
+	
+	@ExistsId(domainClass = Cupom.class, fieldName = "codigo")
+	private String codigoCupom;
 	
 	@Deprecated
 	public DadosNovaCompraRequest(){
@@ -146,11 +153,19 @@ public class DadosNovaCompraRequest {
 		return pedido;
 	}
 
+	public Optional<String> getCodigoCupom() {
+		return Optional.ofNullable(codigoCupom);
+	}
+
+	public void setCodigoCupom(String codigoCupom) {
+		this.codigoCupom = codigoCupom;
+	}
+
 	public boolean temEstado() {
 		return estadoId != null;
 	}
 
-	public Compra toModel(EntityManager manager) {
+	public Compra toModel(EntityManager manager, CupomRepository cupomRepository) {
 		@NotNull Pais pais = manager.find(Pais.class, paisId);
 		
 		Function<Compra, Pedido>  funcaoCriacaoPedido = pedido.toModel(manager);
@@ -161,8 +176,12 @@ public class DadosNovaCompraRequest {
 		if(estadoId != null) {
 			compra.setEstado(manager.find(Estado.class, estadoId));
 		}
+		
+		if(StringUtils.hasText(codigoCupom)){
+			Cupom cupom = cupomRepository.getByCodigo(codigoCupom);
+			compra.aplicaCupom(cupom);
+		}
 		return compra;
 	}
-
 }
 	

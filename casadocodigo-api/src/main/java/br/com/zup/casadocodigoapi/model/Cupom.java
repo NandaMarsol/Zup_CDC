@@ -27,6 +27,10 @@ public class Cupom {
 	@NotNull
 	@Future
 	LocalDate validade;
+	
+	@Deprecated
+	public Cupom() {
+	}
 
 	public Cupom(@NotBlank String codigo, @NotNull BigDecimal percentualDesconto, @NotNull @Future LocalDate validade) {
 		super();
@@ -39,6 +43,18 @@ public class Cupom {
 	public String toString() {
 		return "Cupom [id=" + id + ", codigo=" + codigo + ", percentualDesconto=" + percentualDesconto + ", validade="
 				+ validade + "]";
+	}
+	
+	public boolean valido(){
+		return LocalDate.now().compareTo(this.validade) <= 0;
+	}
+	
+	public BigDecimal getPercentualDesconto() {
+		return percentualDesconto;
+	}
+	
+	public LocalDate getValidade() {
+		return validade;
 	}
 
 }
