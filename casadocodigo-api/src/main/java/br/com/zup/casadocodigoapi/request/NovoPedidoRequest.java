@@ -13,8 +13,6 @@ import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 import javax.validation.constraints.Size;
 
-import org.springframework.util.Assert;
-
 import br.com.zup.casadocodigoapi.model.Compra;
 import br.com.zup.casadocodigoapi.model.ItemPedido;
 import br.com.zup.casadocodigoapi.model.Pedido;
@@ -28,7 +26,6 @@ public class NovoPedidoRequest {
 	
 	@Deprecated
 	public NovoPedidoRequest() {
-		
 	}
 
 	public NovoPedidoRequest(@NotNull @Positive BigDecimal total,
@@ -42,9 +39,6 @@ public class NovoPedidoRequest {
 		return itens;
 	}
 
-	public BigDecimal getTotal() {
-		return total;
-	}
 
 	@Override
 	public String toString() {
@@ -52,17 +46,17 @@ public class NovoPedidoRequest {
 	}
 
 	public Function<Compra, Pedido> toModel(EntityManager manager) {
-		
 		Set<ItemPedido> itensCalculados = itens.stream().map(item -> item.toModel(manager)).collect(Collectors.toSet());
 		
 		return (compra) -> { 
 			Pedido pedido = new Pedido(compra, itensCalculados);
-			Assert.isTrue(pedido.totalIgual(total), "O total enviado não corresponde ao total real");
 			return pedido;
 		};
 	}
-
 	
+	public BigDecimal getTotal() {
+		return total;
+	}
 
 
 }

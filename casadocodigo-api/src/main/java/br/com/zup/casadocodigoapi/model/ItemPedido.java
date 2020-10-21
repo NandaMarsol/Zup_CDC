@@ -13,14 +13,14 @@ public class ItemPedido {
 	@ManyToOne
 	@NotNull private Livro livro;
 	
-	@Positive private int quantidade;
+	@Positive @NotNull private int quantidade;
 	@Positive private BigDecimal precoMomento;
 	
 	@Deprecated
 	public ItemPedido() {
 	}
 
-	public ItemPedido(@NotNull Livro livro, @Positive int quantidade) {
+	public ItemPedido(@NotNull Livro livro, @Positive @NotNull int quantidade) {
 		super();
 		this.livro = livro;
 		this.quantidade = quantidade;
@@ -35,7 +35,18 @@ public class ItemPedido {
 	public BigDecimal total() {
 		return precoMomento.multiply(new BigDecimal(quantidade));
 	}
-	
+
+	public Livro getLivro() {
+		return livro;
+	}
+
+	public int getQuantidade() {
+		return quantidade;
+	}
+
+	public BigDecimal getPrecoMomento() {
+		return precoMomento;
+	}
 	
 
 }

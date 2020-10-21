@@ -27,8 +27,7 @@ public class CupomRequest {
 	private LocalDate validade;
 
 	@Deprecated
-	public CupomRequest(){
-		
+	public CupomRequest(){	
 	}
 	
 	public CupomRequest(@NotBlank String codigo, @NotNull @Positive BigDecimal percentualDesconto) {

@@ -1,5 +1,6 @@
 package br.com.zup.casadocodigoapi.model;
 
+import java.math.BigDecimal;
 import java.util.function.Function;
 
 import javax.persistence.CascadeType;
@@ -94,5 +95,67 @@ public class Compra {
 		Assert.isNull(cupomAplicado, "Não é possível trocar o cupom de uma compra");
 		this.cupomAplicado = new CupomAplicado(cupom);
 	}
+	
+	public BigDecimal total() {
+		return pedido.calcularTotal();
+	}
+	
+	public BigDecimal calcularTotalComDesconto() {
+		BigDecimal desconto = cupomAplicado.getPercentualDescontoMomento();
+		return total().subtract(desconto.divide(new BigDecimal(100)).multiply(total()));
+	}
 
+	public Long getId() {
+		return id;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public String getNome() {
+		return nome;
+	}
+
+	public String getSobrenome() {
+		return sobrenome;
+	}
+
+	public String getDocumento() {
+		return documento;
+	}
+
+	public String getEndereco() {
+		return endereco;
+	}
+
+	public String getComplemento() {
+		return complemento;
+	}
+
+	public Pais getPais() {
+		return pais;
+	}
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+	public String getCep() {
+		return cep;
+	}
+
+	public Estado getEstado() {
+		return estado;
+	}
+
+	public Pedido getPedido() {
+		return pedido;
+	}
+
+	public CupomAplicado getCupomAplicado() {
+		return cupomAplicado;
+	}
+	
+	
 }

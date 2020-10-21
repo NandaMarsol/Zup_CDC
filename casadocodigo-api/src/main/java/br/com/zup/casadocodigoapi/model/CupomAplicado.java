@@ -23,7 +23,6 @@ public class CupomAplicado {
 	
 	@Deprecated
 	public CupomAplicado(){
-		
 	}
 
 	public CupomAplicado(Cupom cupom) {
@@ -37,6 +36,10 @@ public class CupomAplicado {
 	public String toString() {
 		return "CupomAplicado [cupom=" + cupom + ", percentualDescontoMomento=" + percentualDescontoMomento
 				+ ", validadeMomento=" + validadeMomento + "]";
+	}
+
+	public BigDecimal getPercentualDescontoMomento() {
+		return percentualDescontoMomento;
 	}
 	
 }
